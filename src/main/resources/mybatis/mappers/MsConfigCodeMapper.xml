@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsConfigCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsConfigCode" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="config_id" property="configId" jdbcType="INTEGER" />
+    <result column="config_value" property="configValue" jdbcType="VARCHAR" />
+    <result column="code_name" property="codeName" jdbcType="VARCHAR" />
+    <result column="code_value" property="codeValue" jdbcType="VARCHAR" />
+    <result column="code_description" property="codeDescription" jdbcType="VARCHAR" />
+    <result column="code_order" property="codeOrder" jdbcType="INTEGER" />
+    <result column="code_status" property="codeStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, config_id, config_value, code_name, code_value, code_description, code_order, 
+    code_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsConfigCodeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_config_code
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ms_config_code
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ms_config_code
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsConfigCodeExample" >
+    delete from ms_config_code
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsConfigCode" >
+    insert into ms_config_code (id, config_id, config_value, 
+      code_name, code_value, code_description, 
+      code_order, code_status)
+    values (#{id,jdbcType=INTEGER}, #{configId,jdbcType=INTEGER}, #{configValue,jdbcType=VARCHAR}, 
+      #{codeName,jdbcType=VARCHAR}, #{codeValue,jdbcType=VARCHAR}, #{codeDescription,jdbcType=VARCHAR}, 
+      #{codeOrder,jdbcType=INTEGER}, #{codeStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsConfigCode" >
+    insert into ms_config_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="configId != null" >
+        config_id,
+      </if>
+      <if test="configValue != null" >
+        config_value,
+      </if>
+      <if test="codeName != null" >
+        code_name,
+      </if>
+      <if test="codeValue != null" >
+        code_value,
+      </if>
+      <if test="codeDescription != null" >
+        code_description,
+      </if>
+      <if test="codeOrder != null" >
+        code_order,
+      </if>
+      <if test="codeStatus != null" >
+        code_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="configId != null" >
+        #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="configValue != null" >
+        #{configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeDescription != null" >
+        #{codeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="codeOrder != null" >
+        #{codeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="codeStatus != null" >
+        #{codeStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsConfigCodeExample" resultType="java.lang.Integer" >
+    select count(*) from ms_config_code
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_config_code
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.configId != null" >
+        config_id = #{record.configId,jdbcType=INTEGER},
+      </if>
+      <if test="record.configValue != null" >
+        config_value = #{record.configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeName != null" >
+        code_name = #{record.codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeValue != null" >
+        code_value = #{record.codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeDescription != null" >
+        code_description = #{record.codeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.codeOrder != null" >
+        code_order = #{record.codeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.codeStatus != null" >
+        code_status = #{record.codeStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_config_code
+    set id = #{record.id,jdbcType=INTEGER},
+      config_id = #{record.configId,jdbcType=INTEGER},
+      config_value = #{record.configValue,jdbcType=VARCHAR},
+      code_name = #{record.codeName,jdbcType=VARCHAR},
+      code_value = #{record.codeValue,jdbcType=VARCHAR},
+      code_description = #{record.codeDescription,jdbcType=VARCHAR},
+      code_order = #{record.codeOrder,jdbcType=INTEGER},
+      code_status = #{record.codeStatus,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttl.myspringboot.po.MsConfigCode" >
+    update ms_config_code
+    <set >
+      <if test="configId != null" >
+        config_id = #{configId,jdbcType=INTEGER},
+      </if>
+      <if test="configValue != null" >
+        config_value = #{configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeValue != null" >
+        code_value = #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeDescription != null" >
+        code_description = #{codeDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="codeOrder != null" >
+        code_order = #{codeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="codeStatus != null" >
+        code_status = #{codeStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttl.myspringboot.po.MsConfigCode" >
+    update ms_config_code
+    set config_id = #{configId,jdbcType=INTEGER},
+      config_value = #{configValue,jdbcType=VARCHAR},
+      code_name = #{codeName,jdbcType=VARCHAR},
+      code_value = #{codeValue,jdbcType=VARCHAR},
+      code_description = #{codeDescription,jdbcType=VARCHAR},
+      code_order = #{codeOrder,jdbcType=INTEGER},
+      code_status = #{codeStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

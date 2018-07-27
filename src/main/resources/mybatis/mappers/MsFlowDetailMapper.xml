@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsFlowDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsFlowDetail" >
+    <result column="flow_id" property="flowId" jdbcType="INTEGER" />
+    <result column="flow_order" property="flowOrder" jdbcType="INTEGER" />
+    <result column="flow_role_id" property="flowRoleId" jdbcType="INTEGER" />
+    <result column="duration" property="duration" jdbcType="INTEGER" />
+    <result column="is_approval" property="isApproval" jdbcType="TINYINT" />
+    <result column="remind_id" property="remindId" jdbcType="VARCHAR" />
+    <result column="whereabouts" property="whereabouts" jdbcType="TINYINT" />
+    <result column="third_function_id" property="thirdFunctionId" jdbcType="INTEGER" />
+    <result column="is_attach" property="isAttach" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    flow_id, flow_order, flow_role_id, duration, is_approval, remind_id, whereabouts, 
+    third_function_id, is_attach
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsFlowDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_flow_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsFlowDetailExample" >
+    delete from ms_flow_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsFlowDetail" >
+    insert into ms_flow_detail (flow_id, flow_order, flow_role_id, 
+      duration, is_approval, remind_id, 
+      whereabouts, third_function_id, is_attach
+      )
+    values (#{flowId,jdbcType=INTEGER}, #{flowOrder,jdbcType=INTEGER}, #{flowRoleId,jdbcType=INTEGER}, 
+      #{duration,jdbcType=INTEGER}, #{isApproval,jdbcType=TINYINT}, #{remindId,jdbcType=VARCHAR}, 
+      #{whereabouts,jdbcType=TINYINT}, #{thirdFunctionId,jdbcType=INTEGER}, #{isAttach,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsFlowDetail" >
+    insert into ms_flow_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        flow_id,
+      </if>
+      <if test="flowOrder != null" >
+        flow_order,
+      </if>
+      <if test="flowRoleId != null" >
+        flow_role_id,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="isApproval != null" >
+        is_approval,
+      </if>
+      <if test="remindId != null" >
+        remind_id,
+      </if>
+      <if test="whereabouts != null" >
+        whereabouts,
+      </if>
+      <if test="thirdFunctionId != null" >
+        third_function_id,
+      </if>
+      <if test="isAttach != null" >
+        is_attach,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowId != null" >
+        #{flowId,jdbcType=INTEGER},
+      </if>
+      <if test="flowOrder != null" >
+        #{flowOrder,jdbcType=INTEGER},
+      </if>
+      <if test="flowRoleId != null" >
+        #{flowRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="isApproval != null" >
+        #{isApproval,jdbcType=TINYINT},
+      </if>
+      <if test="remindId != null" >
+        #{remindId,jdbcType=VARCHAR},
+      </if>
+      <if test="whereabouts != null" >
+        #{whereabouts,jdbcType=TINYINT},
+      </if>
+      <if test="thirdFunctionId != null" >
+        #{thirdFunctionId,jdbcType=INTEGER},
+      </if>
+      <if test="isAttach != null" >
+        #{isAttach,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsFlowDetailExample" resultType="java.lang.Integer" >
+    select count(*) from ms_flow_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_flow_detail
+    <set >
+      <if test="record.flowId != null" >
+        flow_id = #{record.flowId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowOrder != null" >
+        flow_order = #{record.flowOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.flowRoleId != null" >
+        flow_role_id = #{record.flowRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.isApproval != null" >
+        is_approval = #{record.isApproval,jdbcType=TINYINT},
+      </if>
+      <if test="record.remindId != null" >
+        remind_id = #{record.remindId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.whereabouts != null" >
+        whereabouts = #{record.whereabouts,jdbcType=TINYINT},
+      </if>
+      <if test="record.thirdFunctionId != null" >
+        third_function_id = #{record.thirdFunctionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAttach != null" >
+        is_attach = #{record.isAttach,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_flow_detail
+    set flow_id = #{record.flowId,jdbcType=INTEGER},
+      flow_order = #{record.flowOrder,jdbcType=INTEGER},
+      flow_role_id = #{record.flowRoleId,jdbcType=INTEGER},
+      duration = #{record.duration,jdbcType=INTEGER},
+      is_approval = #{record.isApproval,jdbcType=TINYINT},
+      remind_id = #{record.remindId,jdbcType=VARCHAR},
+      whereabouts = #{record.whereabouts,jdbcType=TINYINT},
+      third_function_id = #{record.thirdFunctionId,jdbcType=INTEGER},
+      is_attach = #{record.isAttach,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

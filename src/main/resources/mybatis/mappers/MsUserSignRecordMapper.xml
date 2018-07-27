@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsUserSignRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsUserSignRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="sign_date" property="signDate" jdbcType="DATE" />
+    <result column="sign_in_time1" property="signInTime1" jdbcType="TIME" />
+    <result column="sign_out_time1" property="signOutTime1" jdbcType="TIME" />
+    <result column="sign_in_add1" property="signInAdd1" jdbcType="VARCHAR" />
+    <result column="sign_in_lat1" property="signInLat1" jdbcType="VARCHAR" />
+    <result column="sign_in_lng1" property="signInLng1" jdbcType="VARCHAR" />
+    <result column="sign_out_add1" property="signOutAdd1" jdbcType="VARCHAR" />
+    <result column="sign_out_lat1" property="signOutLat1" jdbcType="VARCHAR" />
+    <result column="sign_out_lng1" property="signOutLng1" jdbcType="VARCHAR" />
+    <result column="sign_in_time2" property="signInTime2" jdbcType="TIME" />
+    <result column="sign_out_time2" property="signOutTime2" jdbcType="TIME" />
+    <result column="sign_in_add2" property="signInAdd2" jdbcType="VARCHAR" />
+    <result column="sign_in_lat2" property="signInLat2" jdbcType="VARCHAR" />
+    <result column="sign_in_lng2" property="signInLng2" jdbcType="VARCHAR" />
+    <result column="sign_out_add2" property="signOutAdd2" jdbcType="VARCHAR" />
+    <result column="sign_out_lat2" property="signOutLat2" jdbcType="VARCHAR" />
+    <result column="sign_out_lng2" property="signOutLng2" jdbcType="VARCHAR" />
+    <result column="strategy_id" property="strategyId" jdbcType="INTEGER" />
+    <result column="sign_in_type1" property="signInType1" jdbcType="TINYINT" />
+    <result column="sign_out_type1" property="signOutType1" jdbcType="TINYINT" />
+    <result column="sign_in_type2" property="signInType2" jdbcType="TINYINT" />
+    <result column="sign_out_type2" property="signOutType2" jdbcType="TINYINT" />
+    <result column="full_attendance" property="fullAttendance" jdbcType="TINYINT" />
+    <result column="check_in" property="checkIn" jdbcType="TINYINT" />
+    <result column="is_available" property="isAvailable" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, group_id, project_id, sign_date, sign_in_time1, sign_out_time1, sign_in_add1, 
+    sign_in_lat1, sign_in_lng1, sign_out_add1, sign_out_lat1, sign_out_lng1, sign_in_time2, 
+    sign_out_time2, sign_in_add2, sign_in_lat2, sign_in_lng2, sign_out_add2, sign_out_lat2, 
+    sign_out_lng2, strategy_id, sign_in_type1, sign_out_type1, sign_in_type2, sign_out_type2, 
+    full_attendance, check_in, is_available
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsUserSignRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_user_sign_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ms_user_sign_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ms_user_sign_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsUserSignRecordExample" >
+    delete from ms_user_sign_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsUserSignRecord" >
+    insert into ms_user_sign_record (id, user_id, group_id, 
+      project_id, sign_date, sign_in_time1, 
+      sign_out_time1, sign_in_add1, sign_in_lat1, 
+      sign_in_lng1, sign_out_add1, sign_out_lat1, 
+      sign_out_lng1, sign_in_time2, sign_out_time2, 
+      sign_in_add2, sign_in_lat2, sign_in_lng2, 
+      sign_out_add2, sign_out_lat2, sign_out_lng2, 
+      strategy_id, sign_in_type1, sign_out_type1, 
+      sign_in_type2, sign_out_type2, full_attendance, 
+      check_in, is_available)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{signDate,jdbcType=DATE}, #{signInTime1,jdbcType=TIME}, 
+      #{signOutTime1,jdbcType=TIME}, #{signInAdd1,jdbcType=VARCHAR}, #{signInLat1,jdbcType=VARCHAR}, 
+      #{signInLng1,jdbcType=VARCHAR}, #{signOutAdd1,jdbcType=VARCHAR}, #{signOutLat1,jdbcType=VARCHAR}, 
+      #{signOutLng1,jdbcType=VARCHAR}, #{signInTime2,jdbcType=TIME}, #{signOutTime2,jdbcType=TIME}, 
+      #{signInAdd2,jdbcType=VARCHAR}, #{signInLat2,jdbcType=VARCHAR}, #{signInLng2,jdbcType=VARCHAR}, 
+      #{signOutAdd2,jdbcType=VARCHAR}, #{signOutLat2,jdbcType=VARCHAR}, #{signOutLng2,jdbcType=VARCHAR}, 
+      #{strategyId,jdbcType=INTEGER}, #{signInType1,jdbcType=TINYINT}, #{signOutType1,jdbcType=TINYINT}, 
+      #{signInType2,jdbcType=TINYINT}, #{signOutType2,jdbcType=TINYINT}, #{fullAttendance,jdbcType=TINYINT}, 
+      #{checkIn,jdbcType=TINYINT}, #{isAvailable,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsUserSignRecord" >
+    insert into ms_user_sign_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="signDate != null" >
+        sign_date,
+      </if>
+      <if test="signInTime1 != null" >
+        sign_in_time1,
+      </if>
+      <if test="signOutTime1 != null" >
+        sign_out_time1,
+      </if>
+      <if test="signInAdd1 != null" >
+        sign_in_add1,
+      </if>
+      <if test="signInLat1 != null" >
+        sign_in_lat1,
+      </if>
+      <if test="signInLng1 != null" >
+        sign_in_lng1,
+      </if>
+      <if test="signOutAdd1 != null" >
+        sign_out_add1,
+      </if>
+      <if test="signOutLat1 != null" >
+        sign_out_lat1,
+      </if>
+      <if test="signOutLng1 != null" >
+        sign_out_lng1,
+      </if>
+      <if test="signInTime2 != null" >
+        sign_in_time2,
+      </if>
+      <if test="signOutTime2 != null" >
+        sign_out_time2,
+      </if>
+      <if test="signInAdd2 != null" >
+        sign_in_add2,
+      </if>
+      <if test="signInLat2 != null" >
+        sign_in_lat2,
+      </if>
+      <if test="signInLng2 != null" >
+        sign_in_lng2,
+      </if>
+      <if test="signOutAdd2 != null" >
+        sign_out_add2,
+      </if>
+      <if test="signOutLat2 != null" >
+        sign_out_lat2,
+      </if>
+      <if test="signOutLng2 != null" >
+        sign_out_lng2,
+      </if>
+      <if test="strategyId != null" >
+        strategy_id,
+      </if>
+      <if test="signInType1 != null" >
+        sign_in_type1,
+      </if>
+      <if test="signOutType1 != null" >
+        sign_out_type1,
+      </if>
+      <if test="signInType2 != null" >
+        sign_in_type2,
+      </if>
+      <if test="signOutType2 != null" >
+        sign_out_type2,
+      </if>
+      <if test="fullAttendance != null" >
+        full_attendance,
+      </if>
+      <if test="checkIn != null" >
+        check_in,
+      </if>
+      <if test="isAvailable != null" >
+        is_available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=DATE},
+      </if>
+      <if test="signInTime1 != null" >
+        #{signInTime1,jdbcType=TIME},
+      </if>
+      <if test="signOutTime1 != null" >
+        #{signOutTime1,jdbcType=TIME},
+      </if>
+      <if test="signInAdd1 != null" >
+        #{signInAdd1,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLat1 != null" >
+        #{signInLat1,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLng1 != null" >
+        #{signInLng1,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutAdd1 != null" >
+        #{signOutAdd1,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLat1 != null" >
+        #{signOutLat1,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLng1 != null" >
+        #{signOutLng1,jdbcType=VARCHAR},
+      </if>
+      <if test="signInTime2 != null" >
+        #{signInTime2,jdbcType=TIME},
+      </if>
+      <if test="signOutTime2 != null" >
+        #{signOutTime2,jdbcType=TIME},
+      </if>
+      <if test="signInAdd2 != null" >
+        #{signInAdd2,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLat2 != null" >
+        #{signInLat2,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLng2 != null" >
+        #{signInLng2,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutAdd2 != null" >
+        #{signOutAdd2,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLat2 != null" >
+        #{signOutLat2,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLng2 != null" >
+        #{signOutLng2,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null" >
+        #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="signInType1 != null" >
+        #{signInType1,jdbcType=TINYINT},
+      </if>
+      <if test="signOutType1 != null" >
+        #{signOutType1,jdbcType=TINYINT},
+      </if>
+      <if test="signInType2 != null" >
+        #{signInType2,jdbcType=TINYINT},
+      </if>
+      <if test="signOutType2 != null" >
+        #{signOutType2,jdbcType=TINYINT},
+      </if>
+      <if test="fullAttendance != null" >
+        #{fullAttendance,jdbcType=TINYINT},
+      </if>
+      <if test="checkIn != null" >
+        #{checkIn,jdbcType=TINYINT},
+      </if>
+      <if test="isAvailable != null" >
+        #{isAvailable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsUserSignRecordExample" resultType="java.lang.Integer" >
+    select count(*) from ms_user_sign_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_user_sign_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.signDate != null" >
+        sign_date = #{record.signDate,jdbcType=DATE},
+      </if>
+      <if test="record.signInTime1 != null" >
+        sign_in_time1 = #{record.signInTime1,jdbcType=TIME},
+      </if>
+      <if test="record.signOutTime1 != null" >
+        sign_out_time1 = #{record.signOutTime1,jdbcType=TIME},
+      </if>
+      <if test="record.signInAdd1 != null" >
+        sign_in_add1 = #{record.signInAdd1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signInLat1 != null" >
+        sign_in_lat1 = #{record.signInLat1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signInLng1 != null" >
+        sign_in_lng1 = #{record.signInLng1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutAdd1 != null" >
+        sign_out_add1 = #{record.signOutAdd1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutLat1 != null" >
+        sign_out_lat1 = #{record.signOutLat1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutLng1 != null" >
+        sign_out_lng1 = #{record.signOutLng1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signInTime2 != null" >
+        sign_in_time2 = #{record.signInTime2,jdbcType=TIME},
+      </if>
+      <if test="record.signOutTime2 != null" >
+        sign_out_time2 = #{record.signOutTime2,jdbcType=TIME},
+      </if>
+      <if test="record.signInAdd2 != null" >
+        sign_in_add2 = #{record.signInAdd2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signInLat2 != null" >
+        sign_in_lat2 = #{record.signInLat2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signInLng2 != null" >
+        sign_in_lng2 = #{record.signInLng2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutAdd2 != null" >
+        sign_out_add2 = #{record.signOutAdd2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutLat2 != null" >
+        sign_out_lat2 = #{record.signOutLat2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signOutLng2 != null" >
+        sign_out_lng2 = #{record.signOutLng2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.strategyId != null" >
+        strategy_id = #{record.strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.signInType1 != null" >
+        sign_in_type1 = #{record.signInType1,jdbcType=TINYINT},
+      </if>
+      <if test="record.signOutType1 != null" >
+        sign_out_type1 = #{record.signOutType1,jdbcType=TINYINT},
+      </if>
+      <if test="record.signInType2 != null" >
+        sign_in_type2 = #{record.signInType2,jdbcType=TINYINT},
+      </if>
+      <if test="record.signOutType2 != null" >
+        sign_out_type2 = #{record.signOutType2,jdbcType=TINYINT},
+      </if>
+      <if test="record.fullAttendance != null" >
+        full_attendance = #{record.fullAttendance,jdbcType=TINYINT},
+      </if>
+      <if test="record.checkIn != null" >
+        check_in = #{record.checkIn,jdbcType=TINYINT},
+      </if>
+      <if test="record.isAvailable != null" >
+        is_available = #{record.isAvailable,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_user_sign_record
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      sign_date = #{record.signDate,jdbcType=DATE},
+      sign_in_time1 = #{record.signInTime1,jdbcType=TIME},
+      sign_out_time1 = #{record.signOutTime1,jdbcType=TIME},
+      sign_in_add1 = #{record.signInAdd1,jdbcType=VARCHAR},
+      sign_in_lat1 = #{record.signInLat1,jdbcType=VARCHAR},
+      sign_in_lng1 = #{record.signInLng1,jdbcType=VARCHAR},
+      sign_out_add1 = #{record.signOutAdd1,jdbcType=VARCHAR},
+      sign_out_lat1 = #{record.signOutLat1,jdbcType=VARCHAR},
+      sign_out_lng1 = #{record.signOutLng1,jdbcType=VARCHAR},
+      sign_in_time2 = #{record.signInTime2,jdbcType=TIME},
+      sign_out_time2 = #{record.signOutTime2,jdbcType=TIME},
+      sign_in_add2 = #{record.signInAdd2,jdbcType=VARCHAR},
+      sign_in_lat2 = #{record.signInLat2,jdbcType=VARCHAR},
+      sign_in_lng2 = #{record.signInLng2,jdbcType=VARCHAR},
+      sign_out_add2 = #{record.signOutAdd2,jdbcType=VARCHAR},
+      sign_out_lat2 = #{record.signOutLat2,jdbcType=VARCHAR},
+      sign_out_lng2 = #{record.signOutLng2,jdbcType=VARCHAR},
+      strategy_id = #{record.strategyId,jdbcType=INTEGER},
+      sign_in_type1 = #{record.signInType1,jdbcType=TINYINT},
+      sign_out_type1 = #{record.signOutType1,jdbcType=TINYINT},
+      sign_in_type2 = #{record.signInType2,jdbcType=TINYINT},
+      sign_out_type2 = #{record.signOutType2,jdbcType=TINYINT},
+      full_attendance = #{record.fullAttendance,jdbcType=TINYINT},
+      check_in = #{record.checkIn,jdbcType=TINYINT},
+      is_available = #{record.isAvailable,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttl.myspringboot.po.MsUserSignRecord" >
+    update ms_user_sign_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="signDate != null" >
+        sign_date = #{signDate,jdbcType=DATE},
+      </if>
+      <if test="signInTime1 != null" >
+        sign_in_time1 = #{signInTime1,jdbcType=TIME},
+      </if>
+      <if test="signOutTime1 != null" >
+        sign_out_time1 = #{signOutTime1,jdbcType=TIME},
+      </if>
+      <if test="signInAdd1 != null" >
+        sign_in_add1 = #{signInAdd1,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLat1 != null" >
+        sign_in_lat1 = #{signInLat1,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLng1 != null" >
+        sign_in_lng1 = #{signInLng1,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutAdd1 != null" >
+        sign_out_add1 = #{signOutAdd1,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLat1 != null" >
+        sign_out_lat1 = #{signOutLat1,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLng1 != null" >
+        sign_out_lng1 = #{signOutLng1,jdbcType=VARCHAR},
+      </if>
+      <if test="signInTime2 != null" >
+        sign_in_time2 = #{signInTime2,jdbcType=TIME},
+      </if>
+      <if test="signOutTime2 != null" >
+        sign_out_time2 = #{signOutTime2,jdbcType=TIME},
+      </if>
+      <if test="signInAdd2 != null" >
+        sign_in_add2 = #{signInAdd2,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLat2 != null" >
+        sign_in_lat2 = #{signInLat2,jdbcType=VARCHAR},
+      </if>
+      <if test="signInLng2 != null" >
+        sign_in_lng2 = #{signInLng2,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutAdd2 != null" >
+        sign_out_add2 = #{signOutAdd2,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLat2 != null" >
+        sign_out_lat2 = #{signOutLat2,jdbcType=VARCHAR},
+      </if>
+      <if test="signOutLng2 != null" >
+        sign_out_lng2 = #{signOutLng2,jdbcType=VARCHAR},
+      </if>
+      <if test="strategyId != null" >
+        strategy_id = #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="signInType1 != null" >
+        sign_in_type1 = #{signInType1,jdbcType=TINYINT},
+      </if>
+      <if test="signOutType1 != null" >
+        sign_out_type1 = #{signOutType1,jdbcType=TINYINT},
+      </if>
+      <if test="signInType2 != null" >
+        sign_in_type2 = #{signInType2,jdbcType=TINYINT},
+      </if>
+      <if test="signOutType2 != null" >
+        sign_out_type2 = #{signOutType2,jdbcType=TINYINT},
+      </if>
+      <if test="fullAttendance != null" >
+        full_attendance = #{fullAttendance,jdbcType=TINYINT},
+      </if>
+      <if test="checkIn != null" >
+        check_in = #{checkIn,jdbcType=TINYINT},
+      </if>
+      <if test="isAvailable != null" >
+        is_available = #{isAvailable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttl.myspringboot.po.MsUserSignRecord" >
+    update ms_user_sign_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      sign_date = #{signDate,jdbcType=DATE},
+      sign_in_time1 = #{signInTime1,jdbcType=TIME},
+      sign_out_time1 = #{signOutTime1,jdbcType=TIME},
+      sign_in_add1 = #{signInAdd1,jdbcType=VARCHAR},
+      sign_in_lat1 = #{signInLat1,jdbcType=VARCHAR},
+      sign_in_lng1 = #{signInLng1,jdbcType=VARCHAR},
+      sign_out_add1 = #{signOutAdd1,jdbcType=VARCHAR},
+      sign_out_lat1 = #{signOutLat1,jdbcType=VARCHAR},
+      sign_out_lng1 = #{signOutLng1,jdbcType=VARCHAR},
+      sign_in_time2 = #{signInTime2,jdbcType=TIME},
+      sign_out_time2 = #{signOutTime2,jdbcType=TIME},
+      sign_in_add2 = #{signInAdd2,jdbcType=VARCHAR},
+      sign_in_lat2 = #{signInLat2,jdbcType=VARCHAR},
+      sign_in_lng2 = #{signInLng2,jdbcType=VARCHAR},
+      sign_out_add2 = #{signOutAdd2,jdbcType=VARCHAR},
+      sign_out_lat2 = #{signOutLat2,jdbcType=VARCHAR},
+      sign_out_lng2 = #{signOutLng2,jdbcType=VARCHAR},
+      strategy_id = #{strategyId,jdbcType=INTEGER},
+      sign_in_type1 = #{signInType1,jdbcType=TINYINT},
+      sign_out_type1 = #{signOutType1,jdbcType=TINYINT},
+      sign_in_type2 = #{signInType2,jdbcType=TINYINT},
+      sign_out_type2 = #{signOutType2,jdbcType=TINYINT},
+      full_attendance = #{fullAttendance,jdbcType=TINYINT},
+      check_in = #{checkIn,jdbcType=TINYINT},
+      is_available = #{isAvailable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

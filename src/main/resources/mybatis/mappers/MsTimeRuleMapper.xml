@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsTimeRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsTimeRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="time_name" property="timeName" jdbcType="VARCHAR" />
+    <result column="time_desc" property="timeDesc" jdbcType="VARCHAR" />
+    <result column="sign_in_time1" property="signInTime1" jdbcType="TIME" />
+    <result column="sign_in_before1" property="signInBefore1" jdbcType="INTEGER" />
+    <result column="sign_in_after1" property="signInAfter1" jdbcType="INTEGER" />
+    <result column="sign_out_time1" property="signOutTime1" jdbcType="TIME" />
+    <result column="sign_out_before1" property="signOutBefore1" jdbcType="INTEGER" />
+    <result column="sign_out_after1" property="signOutAfter1" jdbcType="INTEGER" />
+    <result column="sign_in_time2" property="signInTime2" jdbcType="TIME" />
+    <result column="sign_in_before2" property="signInBefore2" jdbcType="INTEGER" />
+    <result column="sign_in_after2" property="signInAfter2" jdbcType="INTEGER" />
+    <result column="sign_out_time2" property="signOutTime2" jdbcType="TIME" />
+    <result column="sign_out_before2" property="signOutBefore2" jdbcType="INTEGER" />
+    <result column="sign_out_after2" property="signOutAfter2" jdbcType="INTEGER" />
+    <result column="time_rule_type" property="timeRuleType" jdbcType="TINYINT" />
+    <result column="is_available" property="isAvailable" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, time_name, time_desc, sign_in_time1, sign_in_before1, sign_in_after1, sign_out_time1, 
+    sign_out_before1, sign_out_after1, sign_in_time2, sign_in_before2, sign_in_after2, 
+    sign_out_time2, sign_out_before2, sign_out_after2, time_rule_type, is_available
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsTimeRuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_time_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ms_time_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ms_time_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsTimeRuleExample" >
+    delete from ms_time_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsTimeRule" >
+    insert into ms_time_rule (id, time_name, time_desc, 
+      sign_in_time1, sign_in_before1, sign_in_after1, 
+      sign_out_time1, sign_out_before1, sign_out_after1, 
+      sign_in_time2, sign_in_before2, sign_in_after2, 
+      sign_out_time2, sign_out_before2, sign_out_after2, 
+      time_rule_type, is_available)
+    values (#{id,jdbcType=INTEGER}, #{timeName,jdbcType=VARCHAR}, #{timeDesc,jdbcType=VARCHAR}, 
+      #{signInTime1,jdbcType=TIME}, #{signInBefore1,jdbcType=INTEGER}, #{signInAfter1,jdbcType=INTEGER}, 
+      #{signOutTime1,jdbcType=TIME}, #{signOutBefore1,jdbcType=INTEGER}, #{signOutAfter1,jdbcType=INTEGER}, 
+      #{signInTime2,jdbcType=TIME}, #{signInBefore2,jdbcType=INTEGER}, #{signInAfter2,jdbcType=INTEGER}, 
+      #{signOutTime2,jdbcType=TIME}, #{signOutBefore2,jdbcType=INTEGER}, #{signOutAfter2,jdbcType=INTEGER}, 
+      #{timeRuleType,jdbcType=TINYINT}, #{isAvailable,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsTimeRule" >
+    insert into ms_time_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="timeName != null" >
+        time_name,
+      </if>
+      <if test="timeDesc != null" >
+        time_desc,
+      </if>
+      <if test="signInTime1 != null" >
+        sign_in_time1,
+      </if>
+      <if test="signInBefore1 != null" >
+        sign_in_before1,
+      </if>
+      <if test="signInAfter1 != null" >
+        sign_in_after1,
+      </if>
+      <if test="signOutTime1 != null" >
+        sign_out_time1,
+      </if>
+      <if test="signOutBefore1 != null" >
+        sign_out_before1,
+      </if>
+      <if test="signOutAfter1 != null" >
+        sign_out_after1,
+      </if>
+      <if test="signInTime2 != null" >
+        sign_in_time2,
+      </if>
+      <if test="signInBefore2 != null" >
+        sign_in_before2,
+      </if>
+      <if test="signInAfter2 != null" >
+        sign_in_after2,
+      </if>
+      <if test="signOutTime2 != null" >
+        sign_out_time2,
+      </if>
+      <if test="signOutBefore2 != null" >
+        sign_out_before2,
+      </if>
+      <if test="signOutAfter2 != null" >
+        sign_out_after2,
+      </if>
+      <if test="timeRuleType != null" >
+        time_rule_type,
+      </if>
+      <if test="isAvailable != null" >
+        is_available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="timeName != null" >
+        #{timeName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeDesc != null" >
+        #{timeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="signInTime1 != null" >
+        #{signInTime1,jdbcType=TIME},
+      </if>
+      <if test="signInBefore1 != null" >
+        #{signInBefore1,jdbcType=INTEGER},
+      </if>
+      <if test="signInAfter1 != null" >
+        #{signInAfter1,jdbcType=INTEGER},
+      </if>
+      <if test="signOutTime1 != null" >
+        #{signOutTime1,jdbcType=TIME},
+      </if>
+      <if test="signOutBefore1 != null" >
+        #{signOutBefore1,jdbcType=INTEGER},
+      </if>
+      <if test="signOutAfter1 != null" >
+        #{signOutAfter1,jdbcType=INTEGER},
+      </if>
+      <if test="signInTime2 != null" >
+        #{signInTime2,jdbcType=TIME},
+      </if>
+      <if test="signInBefore2 != null" >
+        #{signInBefore2,jdbcType=INTEGER},
+      </if>
+      <if test="signInAfter2 != null" >
+        #{signInAfter2,jdbcType=INTEGER},
+      </if>
+      <if test="signOutTime2 != null" >
+        #{signOutTime2,jdbcType=TIME},
+      </if>
+      <if test="signOutBefore2 != null" >
+        #{signOutBefore2,jdbcType=INTEGER},
+      </if>
+      <if test="signOutAfter2 != null" >
+        #{signOutAfter2,jdbcType=INTEGER},
+      </if>
+      <if test="timeRuleType != null" >
+        #{timeRuleType,jdbcType=TINYINT},
+      </if>
+      <if test="isAvailable != null" >
+        #{isAvailable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsTimeRuleExample" resultType="java.lang.Integer" >
+    select count(*) from ms_time_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_time_rule
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeName != null" >
+        time_name = #{record.timeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeDesc != null" >
+        time_desc = #{record.timeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signInTime1 != null" >
+        sign_in_time1 = #{record.signInTime1,jdbcType=TIME},
+      </if>
+      <if test="record.signInBefore1 != null" >
+        sign_in_before1 = #{record.signInBefore1,jdbcType=INTEGER},
+      </if>
+      <if test="record.signInAfter1 != null" >
+        sign_in_after1 = #{record.signInAfter1,jdbcType=INTEGER},
+      </if>
+      <if test="record.signOutTime1 != null" >
+        sign_out_time1 = #{record.signOutTime1,jdbcType=TIME},
+      </if>
+      <if test="record.signOutBefore1 != null" >
+        sign_out_before1 = #{record.signOutBefore1,jdbcType=INTEGER},
+      </if>
+      <if test="record.signOutAfter1 != null" >
+        sign_out_after1 = #{record.signOutAfter1,jdbcType=INTEGER},
+      </if>
+      <if test="record.signInTime2 != null" >
+        sign_in_time2 = #{record.signInTime2,jdbcType=TIME},
+      </if>
+      <if test="record.signInBefore2 != null" >
+        sign_in_before2 = #{record.signInBefore2,jdbcType=INTEGER},
+      </if>
+      <if test="record.signInAfter2 != null" >
+        sign_in_after2 = #{record.signInAfter2,jdbcType=INTEGER},
+      </if>
+      <if test="record.signOutTime2 != null" >
+        sign_out_time2 = #{record.signOutTime2,jdbcType=TIME},
+      </if>
+      <if test="record.signOutBefore2 != null" >
+        sign_out_before2 = #{record.signOutBefore2,jdbcType=INTEGER},
+      </if>
+      <if test="record.signOutAfter2 != null" >
+        sign_out_after2 = #{record.signOutAfter2,jdbcType=INTEGER},
+      </if>
+      <if test="record.timeRuleType != null" >
+        time_rule_type = #{record.timeRuleType,jdbcType=TINYINT},
+      </if>
+      <if test="record.isAvailable != null" >
+        is_available = #{record.isAvailable,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_time_rule
+    set id = #{record.id,jdbcType=INTEGER},
+      time_name = #{record.timeName,jdbcType=VARCHAR},
+      time_desc = #{record.timeDesc,jdbcType=VARCHAR},
+      sign_in_time1 = #{record.signInTime1,jdbcType=TIME},
+      sign_in_before1 = #{record.signInBefore1,jdbcType=INTEGER},
+      sign_in_after1 = #{record.signInAfter1,jdbcType=INTEGER},
+      sign_out_time1 = #{record.signOutTime1,jdbcType=TIME},
+      sign_out_before1 = #{record.signOutBefore1,jdbcType=INTEGER},
+      sign_out_after1 = #{record.signOutAfter1,jdbcType=INTEGER},
+      sign_in_time2 = #{record.signInTime2,jdbcType=TIME},
+      sign_in_before2 = #{record.signInBefore2,jdbcType=INTEGER},
+      sign_in_after2 = #{record.signInAfter2,jdbcType=INTEGER},
+      sign_out_time2 = #{record.signOutTime2,jdbcType=TIME},
+      sign_out_before2 = #{record.signOutBefore2,jdbcType=INTEGER},
+      sign_out_after2 = #{record.signOutAfter2,jdbcType=INTEGER},
+      time_rule_type = #{record.timeRuleType,jdbcType=TINYINT},
+      is_available = #{record.isAvailable,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttl.myspringboot.po.MsTimeRule" >
+    update ms_time_rule
+    <set >
+      <if test="timeName != null" >
+        time_name = #{timeName,jdbcType=VARCHAR},
+      </if>
+      <if test="timeDesc != null" >
+        time_desc = #{timeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="signInTime1 != null" >
+        sign_in_time1 = #{signInTime1,jdbcType=TIME},
+      </if>
+      <if test="signInBefore1 != null" >
+        sign_in_before1 = #{signInBefore1,jdbcType=INTEGER},
+      </if>
+      <if test="signInAfter1 != null" >
+        sign_in_after1 = #{signInAfter1,jdbcType=INTEGER},
+      </if>
+      <if test="signOutTime1 != null" >
+        sign_out_time1 = #{signOutTime1,jdbcType=TIME},
+      </if>
+      <if test="signOutBefore1 != null" >
+        sign_out_before1 = #{signOutBefore1,jdbcType=INTEGER},
+      </if>
+      <if test="signOutAfter1 != null" >
+        sign_out_after1 = #{signOutAfter1,jdbcType=INTEGER},
+      </if>
+      <if test="signInTime2 != null" >
+        sign_in_time2 = #{signInTime2,jdbcType=TIME},
+      </if>
+      <if test="signInBefore2 != null" >
+        sign_in_before2 = #{signInBefore2,jdbcType=INTEGER},
+      </if>
+      <if test="signInAfter2 != null" >
+        sign_in_after2 = #{signInAfter2,jdbcType=INTEGER},
+      </if>
+      <if test="signOutTime2 != null" >
+        sign_out_time2 = #{signOutTime2,jdbcType=TIME},
+      </if>
+      <if test="signOutBefore2 != null" >
+        sign_out_before2 = #{signOutBefore2,jdbcType=INTEGER},
+      </if>
+      <if test="signOutAfter2 != null" >
+        sign_out_after2 = #{signOutAfter2,jdbcType=INTEGER},
+      </if>
+      <if test="timeRuleType != null" >
+        time_rule_type = #{timeRuleType,jdbcType=TINYINT},
+      </if>
+      <if test="isAvailable != null" >
+        is_available = #{isAvailable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttl.myspringboot.po.MsTimeRule" >
+    update ms_time_rule
+    set time_name = #{timeName,jdbcType=VARCHAR},
+      time_desc = #{timeDesc,jdbcType=VARCHAR},
+      sign_in_time1 = #{signInTime1,jdbcType=TIME},
+      sign_in_before1 = #{signInBefore1,jdbcType=INTEGER},
+      sign_in_after1 = #{signInAfter1,jdbcType=INTEGER},
+      sign_out_time1 = #{signOutTime1,jdbcType=TIME},
+      sign_out_before1 = #{signOutBefore1,jdbcType=INTEGER},
+      sign_out_after1 = #{signOutAfter1,jdbcType=INTEGER},
+      sign_in_time2 = #{signInTime2,jdbcType=TIME},
+      sign_in_before2 = #{signInBefore2,jdbcType=INTEGER},
+      sign_in_after2 = #{signInAfter2,jdbcType=INTEGER},
+      sign_out_time2 = #{signOutTime2,jdbcType=TIME},
+      sign_out_before2 = #{signOutBefore2,jdbcType=INTEGER},
+      sign_out_after2 = #{signOutAfter2,jdbcType=INTEGER},
+      time_rule_type = #{timeRuleType,jdbcType=TINYINT},
+      is_available = #{isAvailable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

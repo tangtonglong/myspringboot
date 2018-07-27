@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsResume" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="vocation_id" property="vocationId" jdbcType="INTEGER" />
+    <result column="work_age" property="workAge" jdbcType="INTEGER" />
+    <result column="livein_id" property="liveinId" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="job_feature_id" property="jobFeatureId" jdbcType="INTEGER" />
+    <result column="expect_work_district_id" property="expectWorkDistrictId" jdbcType="INTEGER" />
+    <result column="expect_salary" property="expectSalary" jdbcType="VARCHAR" />
+    <result column="work_apply_status" property="workApplyStatus" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="TINYINT" />
+    <result column="resume_status" property="resumeStatus" jdbcType="TINYINT" />
+    <result column="resume_name" property="resumeName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="industry_id" property="industryId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ttl.myspringboot.po.MsResume" extends="BaseResultMap" >
+    <result column="self_eval" property="selfEval" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, vocation_id, work_age, livein_id, phone, job_feature_id, expect_work_district_id, 
+    expect_salary, work_apply_status, is_default, resume_status, resume_name, create_time, 
+    industry_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    self_eval
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ttl.myspringboot.po.MsResumeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsResumeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_resume
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ms_resume
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsResumeExample" >
+    delete from ms_resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsResume" >
+    insert into ms_resume (id, user_id, vocation_id, 
+      work_age, livein_id, phone, 
+      job_feature_id, expect_work_district_id, expect_salary, 
+      work_apply_status, is_default, resume_status, 
+      resume_name, create_time, industry_id, 
+      self_eval)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{vocationId,jdbcType=INTEGER}, 
+      #{workAge,jdbcType=INTEGER}, #{liveinId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
+      #{jobFeatureId,jdbcType=INTEGER}, #{expectWorkDistrictId,jdbcType=INTEGER}, #{expectSalary,jdbcType=VARCHAR}, 
+      #{workApplyStatus,jdbcType=VARCHAR}, #{isDefault,jdbcType=TINYINT}, #{resumeStatus,jdbcType=TINYINT}, 
+      #{resumeName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{industryId,jdbcType=INTEGER}, 
+      #{selfEval,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsResume" >
+    insert into ms_resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="vocationId != null" >
+        vocation_id,
+      </if>
+      <if test="workAge != null" >
+        work_age,
+      </if>
+      <if test="liveinId != null" >
+        livein_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="jobFeatureId != null" >
+        job_feature_id,
+      </if>
+      <if test="expectWorkDistrictId != null" >
+        expect_work_district_id,
+      </if>
+      <if test="expectSalary != null" >
+        expect_salary,
+      </if>
+      <if test="workApplyStatus != null" >
+        work_apply_status,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="resumeStatus != null" >
+        resume_status,
+      </if>
+      <if test="resumeName != null" >
+        resume_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="selfEval != null" >
+        self_eval,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="vocationId != null" >
+        #{vocationId,jdbcType=INTEGER},
+      </if>
+      <if test="workAge != null" >
+        #{workAge,jdbcType=INTEGER},
+      </if>
+      <if test="liveinId != null" >
+        #{liveinId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="jobFeatureId != null" >
+        #{jobFeatureId,jdbcType=INTEGER},
+      </if>
+      <if test="expectWorkDistrictId != null" >
+        #{expectWorkDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="expectSalary != null" >
+        #{expectSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="workApplyStatus != null" >
+        #{workApplyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="resumeStatus != null" >
+        #{resumeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="resumeName != null" >
+        #{resumeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=INTEGER},
+      </if>
+      <if test="selfEval != null" >
+        #{selfEval,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsResumeExample" resultType="java.lang.Integer" >
+    select count(*) from ms_resume
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_resume
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.vocationId != null" >
+        vocation_id = #{record.vocationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workAge != null" >
+        work_age = #{record.workAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.liveinId != null" >
+        livein_id = #{record.liveinId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobFeatureId != null" >
+        job_feature_id = #{record.jobFeatureId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expectWorkDistrictId != null" >
+        expect_work_district_id = #{record.expectWorkDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="record.expectSalary != null" >
+        expect_salary = #{record.expectSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workApplyStatus != null" >
+        work_apply_status = #{record.workApplyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDefault != null" >
+        is_default = #{record.isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="record.resumeStatus != null" >
+        resume_status = #{record.resumeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.resumeName != null" >
+        resume_name = #{record.resumeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.industryId != null" >
+        industry_id = #{record.industryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.selfEval != null" >
+        self_eval = #{record.selfEval,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ms_resume
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      vocation_id = #{record.vocationId,jdbcType=INTEGER},
+      work_age = #{record.workAge,jdbcType=INTEGER},
+      livein_id = #{record.liveinId,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      job_feature_id = #{record.jobFeatureId,jdbcType=INTEGER},
+      expect_work_district_id = #{record.expectWorkDistrictId,jdbcType=INTEGER},
+      expect_salary = #{record.expectSalary,jdbcType=VARCHAR},
+      work_apply_status = #{record.workApplyStatus,jdbcType=VARCHAR},
+      is_default = #{record.isDefault,jdbcType=TINYINT},
+      resume_status = #{record.resumeStatus,jdbcType=TINYINT},
+      resume_name = #{record.resumeName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      industry_id = #{record.industryId,jdbcType=INTEGER},
+      self_eval = #{record.selfEval,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_resume
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      vocation_id = #{record.vocationId,jdbcType=INTEGER},
+      work_age = #{record.workAge,jdbcType=INTEGER},
+      livein_id = #{record.liveinId,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      job_feature_id = #{record.jobFeatureId,jdbcType=INTEGER},
+      expect_work_district_id = #{record.expectWorkDistrictId,jdbcType=INTEGER},
+      expect_salary = #{record.expectSalary,jdbcType=VARCHAR},
+      work_apply_status = #{record.workApplyStatus,jdbcType=VARCHAR},
+      is_default = #{record.isDefault,jdbcType=TINYINT},
+      resume_status = #{record.resumeStatus,jdbcType=TINYINT},
+      resume_name = #{record.resumeName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      industry_id = #{record.industryId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttl.myspringboot.po.MsResume" >
+    update ms_resume
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="vocationId != null" >
+        vocation_id = #{vocationId,jdbcType=INTEGER},
+      </if>
+      <if test="workAge != null" >
+        work_age = #{workAge,jdbcType=INTEGER},
+      </if>
+      <if test="liveinId != null" >
+        livein_id = #{liveinId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="jobFeatureId != null" >
+        job_feature_id = #{jobFeatureId,jdbcType=INTEGER},
+      </if>
+      <if test="expectWorkDistrictId != null" >
+        expect_work_district_id = #{expectWorkDistrictId,jdbcType=INTEGER},
+      </if>
+      <if test="expectSalary != null" >
+        expect_salary = #{expectSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="workApplyStatus != null" >
+        work_apply_status = #{workApplyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=TINYINT},
+      </if>
+      <if test="resumeStatus != null" >
+        resume_status = #{resumeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="resumeName != null" >
+        resume_name = #{resumeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="industryId != null" >
+        industry_id = #{industryId,jdbcType=INTEGER},
+      </if>
+      <if test="selfEval != null" >
+        self_eval = #{selfEval,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ttl.myspringboot.po.MsResume" >
+    update ms_resume
+    set user_id = #{userId,jdbcType=INTEGER},
+      vocation_id = #{vocationId,jdbcType=INTEGER},
+      work_age = #{workAge,jdbcType=INTEGER},
+      livein_id = #{liveinId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      job_feature_id = #{jobFeatureId,jdbcType=INTEGER},
+      expect_work_district_id = #{expectWorkDistrictId,jdbcType=INTEGER},
+      expect_salary = #{expectSalary,jdbcType=VARCHAR},
+      work_apply_status = #{workApplyStatus,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=TINYINT},
+      resume_status = #{resumeStatus,jdbcType=TINYINT},
+      resume_name = #{resumeName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      industry_id = #{industryId,jdbcType=INTEGER},
+      self_eval = #{selfEval,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttl.myspringboot.po.MsResume" >
+    update ms_resume
+    set user_id = #{userId,jdbcType=INTEGER},
+      vocation_id = #{vocationId,jdbcType=INTEGER},
+      work_age = #{workAge,jdbcType=INTEGER},
+      livein_id = #{liveinId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      job_feature_id = #{jobFeatureId,jdbcType=INTEGER},
+      expect_work_district_id = #{expectWorkDistrictId,jdbcType=INTEGER},
+      expect_salary = #{expectSalary,jdbcType=VARCHAR},
+      work_apply_status = #{workApplyStatus,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=TINYINT},
+      resume_status = #{resumeStatus,jdbcType=TINYINT},
+      resume_name = #{resumeName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      industry_id = #{industryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

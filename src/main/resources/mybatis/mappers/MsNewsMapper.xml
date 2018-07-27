@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsNewsMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsNews" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="subtitle" property="subtitle" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="nav_type" property="navType" jdbcType="TINYINT" />
+    <result column="second_type" property="secondType" jdbcType="TINYINT" />
+    <result column="is_img" property="isImg" jdbcType="TINYINT" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="vocation_id" property="vocationId" jdbcType="INTEGER" />
+    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+    <result column="new_from" property="newFrom" jdbcType="VARCHAR" />
+    <result column="news_url" property="newsUrl" jdbcType="VARCHAR" />
+    <result column="is_collect" property="isCollect" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ttl.myspringboot.po.MsNews" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, subtitle, create_time, nav_type, second_type, is_img, pic_url, vocation_id, 
+    district_id, new_from, news_url, is_collect
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.ttl.myspringboot.po.MsNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsNewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ms_news
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ms_news
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsNewsExample" >
+    delete from ms_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsNews" >
+    insert into ms_news (id, title, subtitle, 
+      create_time, nav_type, second_type, 
+      is_img, pic_url, vocation_id, 
+      district_id, new_from, news_url, 
+      is_collect, content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{subtitle,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{navType,jdbcType=TINYINT}, #{secondType,jdbcType=TINYINT}, 
+      #{isImg,jdbcType=TINYINT}, #{picUrl,jdbcType=VARCHAR}, #{vocationId,jdbcType=INTEGER}, 
+      #{districtId,jdbcType=INTEGER}, #{newFrom,jdbcType=VARCHAR}, #{newsUrl,jdbcType=VARCHAR}, 
+      #{isCollect,jdbcType=TINYINT}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsNews" >
+    insert into ms_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="subtitle != null" >
+        subtitle,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="navType != null" >
+        nav_type,
+      </if>
+      <if test="secondType != null" >
+        second_type,
+      </if>
+      <if test="isImg != null" >
+        is_img,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="vocationId != null" >
+        vocation_id,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+      <if test="newFrom != null" >
+        new_from,
+      </if>
+      <if test="newsUrl != null" >
+        news_url,
+      </if>
+      <if test="isCollect != null" >
+        is_collect,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null" >
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="navType != null" >
+        #{navType,jdbcType=TINYINT},
+      </if>
+      <if test="secondType != null" >
+        #{secondType,jdbcType=TINYINT},
+      </if>
+      <if test="isImg != null" >
+        #{isImg,jdbcType=TINYINT},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vocationId != null" >
+        #{vocationId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="newFrom != null" >
+        #{newFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="newsUrl != null" >
+        #{newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCollect != null" >
+        #{isCollect,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsNewsExample" resultType="java.lang.Integer" >
+    select count(*) from ms_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_news
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtitle != null" >
+        subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.navType != null" >
+        nav_type = #{record.navType,jdbcType=TINYINT},
+      </if>
+      <if test="record.secondType != null" >
+        second_type = #{record.secondType,jdbcType=TINYINT},
+      </if>
+      <if test="record.isImg != null" >
+        is_img = #{record.isImg,jdbcType=TINYINT},
+      </if>
+      <if test="record.picUrl != null" >
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vocationId != null" >
+        vocation_id = #{record.vocationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.districtId != null" >
+        district_id = #{record.districtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newFrom != null" >
+        new_from = #{record.newFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsUrl != null" >
+        news_url = #{record.newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCollect != null" >
+        is_collect = #{record.isCollect,jdbcType=TINYINT},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update ms_news
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      nav_type = #{record.navType,jdbcType=TINYINT},
+      second_type = #{record.secondType,jdbcType=TINYINT},
+      is_img = #{record.isImg,jdbcType=TINYINT},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      vocation_id = #{record.vocationId,jdbcType=INTEGER},
+      district_id = #{record.districtId,jdbcType=INTEGER},
+      new_from = #{record.newFrom,jdbcType=VARCHAR},
+      news_url = #{record.newsUrl,jdbcType=VARCHAR},
+      is_collect = #{record.isCollect,jdbcType=TINYINT},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_news
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      nav_type = #{record.navType,jdbcType=TINYINT},
+      second_type = #{record.secondType,jdbcType=TINYINT},
+      is_img = #{record.isImg,jdbcType=TINYINT},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      vocation_id = #{record.vocationId,jdbcType=INTEGER},
+      district_id = #{record.districtId,jdbcType=INTEGER},
+      new_from = #{record.newFrom,jdbcType=VARCHAR},
+      news_url = #{record.newsUrl,jdbcType=VARCHAR},
+      is_collect = #{record.isCollect,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttl.myspringboot.po.MsNews" >
+    update ms_news
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null" >
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="navType != null" >
+        nav_type = #{navType,jdbcType=TINYINT},
+      </if>
+      <if test="secondType != null" >
+        second_type = #{secondType,jdbcType=TINYINT},
+      </if>
+      <if test="isImg != null" >
+        is_img = #{isImg,jdbcType=TINYINT},
+      </if>
+      <if test="picUrl != null" >
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vocationId != null" >
+        vocation_id = #{vocationId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="newFrom != null" >
+        new_from = #{newFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="newsUrl != null" >
+        news_url = #{newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isCollect != null" >
+        is_collect = #{isCollect,jdbcType=TINYINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ttl.myspringboot.po.MsNews" >
+    update ms_news
+    set title = #{title,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      nav_type = #{navType,jdbcType=TINYINT},
+      second_type = #{secondType,jdbcType=TINYINT},
+      is_img = #{isImg,jdbcType=TINYINT},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      vocation_id = #{vocationId,jdbcType=INTEGER},
+      district_id = #{districtId,jdbcType=INTEGER},
+      new_from = #{newFrom,jdbcType=VARCHAR},
+      news_url = #{newsUrl,jdbcType=VARCHAR},
+      is_collect = #{isCollect,jdbcType=TINYINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttl.myspringboot.po.MsNews" >
+    update ms_news
+    set title = #{title,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      nav_type = #{navType,jdbcType=TINYINT},
+      second_type = #{secondType,jdbcType=TINYINT},
+      is_img = #{isImg,jdbcType=TINYINT},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      vocation_id = #{vocationId,jdbcType=INTEGER},
+      district_id = #{districtId,jdbcType=INTEGER},
+      new_from = #{newFrom,jdbcType=VARCHAR},
+      news_url = #{newsUrl,jdbcType=VARCHAR},
+      is_collect = #{isCollect,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttl.myspringboot.dao.MsUserLackAttendanceMapper" >
+  <resultMap id="BaseResultMap" type="com.ttl.myspringboot.po.MsUserLackAttendance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="project_id" property="projectId" jdbcType="INTEGER" />
+    <result column="record_date" property="recordDate" jdbcType="DATE" />
+    <result column="lack_time1" property="lackTime1" jdbcType="TIME" />
+    <result column="lack_time2" property="lackTime2" jdbcType="TIME" />
+    <result column="record_type" property="recordType" jdbcType="TINYINT" />
+    <result column="strategy_id" property="strategyId" jdbcType="INTEGER" />
+    <result column="is_available" property="isAvailable" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, group_id, project_id, record_date, lack_time1, lack_time2, record_type, 
+    strategy_id, is_available
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ttl.myspringboot.po.MsUserLackAttendanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ms_user_lack_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ms_user_lack_attendance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ms_user_lack_attendance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ttl.myspringboot.po.MsUserLackAttendanceExample" >
+    delete from ms_user_lack_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ttl.myspringboot.po.MsUserLackAttendance" >
+    insert into ms_user_lack_attendance (id, user_id, group_id, 
+      project_id, record_date, lack_time1, 
+      lack_time2, record_type, strategy_id, 
+      is_available)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{recordDate,jdbcType=DATE}, #{lackTime1,jdbcType=TIME}, 
+      #{lackTime2,jdbcType=TIME}, #{recordType,jdbcType=TINYINT}, #{strategyId,jdbcType=INTEGER}, 
+      #{isAvailable,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttl.myspringboot.po.MsUserLackAttendance" >
+    insert into ms_user_lack_attendance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="recordDate != null" >
+        record_date,
+      </if>
+      <if test="lackTime1 != null" >
+        lack_time1,
+      </if>
+      <if test="lackTime2 != null" >
+        lack_time2,
+      </if>
+      <if test="recordType != null" >
+        record_type,
+      </if>
+      <if test="strategyId != null" >
+        strategy_id,
+      </if>
+      <if test="isAvailable != null" >
+        is_available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="recordDate != null" >
+        #{recordDate,jdbcType=DATE},
+      </if>
+      <if test="lackTime1 != null" >
+        #{lackTime1,jdbcType=TIME},
+      </if>
+      <if test="lackTime2 != null" >
+        #{lackTime2,jdbcType=TIME},
+      </if>
+      <if test="recordType != null" >
+        #{recordType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyId != null" >
+        #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="isAvailable != null" >
+        #{isAvailable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ttl.myspringboot.po.MsUserLackAttendanceExample" resultType="java.lang.Integer" >
+    select count(*) from ms_user_lack_attendance
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ms_user_lack_attendance
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordDate != null" >
+        record_date = #{record.recordDate,jdbcType=DATE},
+      </if>
+      <if test="record.lackTime1 != null" >
+        lack_time1 = #{record.lackTime1,jdbcType=TIME},
+      </if>
+      <if test="record.lackTime2 != null" >
+        lack_time2 = #{record.lackTime2,jdbcType=TIME},
+      </if>
+      <if test="record.recordType != null" >
+        record_type = #{record.recordType,jdbcType=TINYINT},
+      </if>
+      <if test="record.strategyId != null" >
+        strategy_id = #{record.strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isAvailable != null" >
+        is_available = #{record.isAvailable,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ms_user_lack_attendance
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      record_date = #{record.recordDate,jdbcType=DATE},
+      lack_time1 = #{record.lackTime1,jdbcType=TIME},
+      lack_time2 = #{record.lackTime2,jdbcType=TIME},
+      record_type = #{record.recordType,jdbcType=TINYINT},
+      strategy_id = #{record.strategyId,jdbcType=INTEGER},
+      is_available = #{record.isAvailable,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttl.myspringboot.po.MsUserLackAttendance" >
+    update ms_user_lack_attendance
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="recordDate != null" >
+        record_date = #{recordDate,jdbcType=DATE},
+      </if>
+      <if test="lackTime1 != null" >
+        lack_time1 = #{lackTime1,jdbcType=TIME},
+      </if>
+      <if test="lackTime2 != null" >
+        lack_time2 = #{lackTime2,jdbcType=TIME},
+      </if>
+      <if test="recordType != null" >
+        record_type = #{recordType,jdbcType=TINYINT},
+      </if>
+      <if test="strategyId != null" >
+        strategy_id = #{strategyId,jdbcType=INTEGER},
+      </if>
+      <if test="isAvailable != null" >
+        is_available = #{isAvailable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttl.myspringboot.po.MsUserLackAttendance" >
+    update ms_user_lack_attendance
+    set user_id = #{userId,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      record_date = #{recordDate,jdbcType=DATE},
+      lack_time1 = #{lackTime1,jdbcType=TIME},
+      lack_time2 = #{lackTime2,jdbcType=TIME},
+      record_type = #{recordType,jdbcType=TINYINT},
+      strategy_id = #{strategyId,jdbcType=INTEGER},
+      is_available = #{isAvailable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
