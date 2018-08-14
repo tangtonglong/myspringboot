@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+
+@CachePut
 @Mapper
 public interface MsUserMapper {
     int countByExample(MsUserExample example);
@@ -18,8 +22,10 @@ public interface MsUserMapper {
 
     int insertSelective(MsUser record);
 
+    @Cacheable(value = "all", keyGenerator = "wiselyKeyGenerator")
     List<MsUser> selectByExample(MsUserExample example);
 
+    @Cacheable(value = "findById", keyGenerator = "wiselyKeyGenerator")
     MsUser selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") MsUser record, @Param("example") MsUserExample example);

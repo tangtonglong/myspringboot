@@ -2,6 +2,7 @@ package com.ttl.myspringboot.controller;
 
 import com.ttl.myspringboot.po.MsUser;
 import com.ttl.myspringboot.service.UserService;
+import com.ttl.myspringboot.vo.UserParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,16 @@ public class UserController {
 
     @RequestMapping(value = "getUser", method = RequestMethod.POST)
     @ResponseBody
-    public List<MsUser> getUser() {
+    public List<MsUser> getUser(UserParam userParam) {
 
-        return userService.findAllUser();
+        return userService.findAllUser(userParam);
+    }
+
+    @RequestMapping(value = "findUserById", method = RequestMethod.POST)
+    @ResponseBody
+    public MsUser findUserById(Integer userId) {
+
+        return userService.findUserById(userId);
     }
 
 }

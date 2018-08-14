@@ -1,6 +1,7 @@
 package com.ttl.myspringboot.service;
 
 import com.ttl.myspringboot.po.MsUser;
+import com.ttl.myspringboot.vo.UserParam;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface UserService {
 
     int addUser(MsUser msUser);
 
-    List<MsUser> findAllUser();
+    List<MsUser> findAllUser(UserParam userParam);
+
+    MsUser findUserById(Integer userId);
 }
